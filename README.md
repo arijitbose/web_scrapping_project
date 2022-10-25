@@ -9,3 +9,17 @@
 ## example1: Brain_Lara
 
 ## Return is a dictionary with key: value pairs with statistics
+
+## Mat stands for Matches 
+
+## Inns stands for number of Inning played
+
+## NO mean  number of times the player was not dismissed
+
+
+## Runs total number of Runs scored
+ 
+ 
+## HS Highest Score
+
+## Average : Batting Average
