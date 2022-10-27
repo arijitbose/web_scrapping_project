@@ -8,7 +8,8 @@ from flask import Flask,request,app,jsonify,url_for,render_template
 import json
 from pandas import json_normalize
 from IPython.display import HTML
-
+import os
+import time
 
 app=Flask(__name__)
 
@@ -104,17 +105,27 @@ def predict():
         f.append(anchor.text)
     g=f[0:6]
     new_dict = {e[i]: g[i] for i in range(len(e))}
-    # print(new_dict)
-    # df_table = pd.DataFrame(new_dict,index=[0])
-    # html_final = df_table.to_html()
+    print(new_dict)
+    df_table = pd.DataFrame(new_dict,index=[0])
+    html_final = df_table.to_html()
     
-    # text_file = open("templates/result.html", "w")
-    # text_file.write(html_final)
-    # text_file.close()
+    text_file = open("templates/result.html", "w")
+    text_file.write(html_final)
+     
+    text_file.close()
+    time.sleep(2) 
 
-    # return render_template("result.html",name=predict)
-    return render_template("home.html",prediction_text=data+"{}".format(new_dict))
+   
     
+    
+
+
+    return render_template("result.html",name=predict)
+  
+  
+
+    # return render_template("home.html",prediction_text=data+"{}".format(new_dict))
+
    
 
 
