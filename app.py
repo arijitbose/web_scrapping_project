@@ -4,12 +4,14 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from urllib.request import urlopen
 from flask import Flask,request,app,jsonify,url_for,render_template
-# from ipynb.fs.full.spaceship_titanic_experiment import ExperimentalTransformer
+
 import json
 from pandas import json_normalize
+from IPython.display import HTML
+
 
 app=Flask(__name__)
-## Load the model
+
 
 @app.route('/')
 def home():
@@ -52,6 +54,7 @@ def predict_api():
         new_dict = {e[i]: g[i] for i in range(len(e))}
         print(new_dict)
         df_table = pd.DataFrame(new_dict,index=[0])
+        
     
         print(df_table)
         return str(df_table)
@@ -61,7 +64,6 @@ def predict_api():
             print('The Exception message is: ',e)  
     
 
-    # return jsonify(str(output[0]))
     
 
 @app.route('/predict',methods=['POST'])
@@ -104,12 +106,16 @@ def predict():
     new_dict = {e[i]: g[i] for i in range(len(e))}
     print(new_dict)
     df_table = pd.DataFrame(new_dict,index=[0])
+    html_final = df_table.to_html()
     
-    
-    return render_template("home.html",prediction_text=data+"{}".format(new_dict))
+    text_file = open("templates/result.html", "w")
+    text_file.write(html_final)
+    text_file.close()
+
+    return render_template("result.html",name=predict)
     
    
- 
+
 
 if __name__=="__main__":
     app.run(debug=True)
